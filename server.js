@@ -7,24 +7,13 @@ const port = 3000;
 
 //TODO
 app.get('/musicians', async(req, res) => {
-    try{
-        const musicians = await Musician.findAll();
-        res.json(musicians);
-    }catch (error){
-        res.status(500).send('Error')
-    }
+    const musicians = await Musician.findAll();
+    res.json(musicians);
 })
 
-app.get('/musicians', async (req, res) => {
-    try{
-        const musicians = await Musician.findByPk(req.params.id);
-    if (!musicians){
-        return req.status('200').json({ error: 'No musician found'});
-    }
-    res.json(musicians);
-} catch (error) {
-    res.status('500').json({error: 'Error'});
-}
+app.get('/musicians/:id', async (req, res) => {
+    const musician = await Musician.findByPk(req.params.id);
+    res.json(musician);
 })
 
 app.listen(port, () => {
